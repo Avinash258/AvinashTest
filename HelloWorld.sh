@@ -1,5 +1,3 @@
-#! /bin/bash
-
-echo ""
-echo "Getting latest for appio repositories using pull "
+Hello World Test
+Testing
 
