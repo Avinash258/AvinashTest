@@ -1,0 +1,46 @@
+###Jenkins Installation Handbook
+
+#Step 1 Install Jenkins
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
+    /etc/apt/sources.list.d/jenkins.list'
+sudo apt-get update
+sudo apt-get install jenkins
+
+
+#Step 2 — Starting Jenkins
+sudo systemctl start jenkins
+sudo systemctl status jenkins
+
+#Step 3:-
+
+To set up your installation, visit Jenkins on its default port, 8080, using your server domain name or IP address: http://your_server_ip_or_domain:8080
+
+You should see the Unlock Jenkins screen, which displays the location of the initial password:
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+ 
+Copy the 32-character alphanumeric password from the terminal and paste it into the Administrator password field, then click Continue
+
+
+##Create BlockLock-API Jobs
+Step 1 − Go to the Jenkins dashboard and Click on New Item
+Step 2 − In the next screen, enter the Item name, in this case we have named it BlockLock-API. Choose the ‘Freestyle project option’
+Step 3 -In Source Code Management,select Git and than fill Repository URL:-https://github.com/smartaxiom-inc/tenacious.git fill up the Credentials
+Step 4:- In Branches to build select desized branch
+Step 5:- In Additional Behaviours select "Check out to specific local branch" and then specified branch name in "Branch name".
+Step 6:- In Build Triggers select GitHub hook trigger for GITScm polling
+Step 7:- In Build select execute shell 
+fill below command
+
+cd /var/lib/jenkins/workspace/Tenacious_API/tenacious-api
+pwd
+sudo git branch 
+sudo npm install
+sudo npm run lint
+sudo mvn test
+
+Step 8:-In Post-build Actions select E-mail Notification and fill the "Recipients" email id
+Step 9:-Save the project
+
+
